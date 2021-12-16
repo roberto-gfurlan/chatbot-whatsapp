@@ -1,5 +1,5 @@
 import dotenv from 'dotenv'
-import got from 'got';
+import axios from 'axios';
 
 import FormData from 'form-data';
 import { Client, FileContent, TextContent, WebhookController }from '@zenvia/sdk';
@@ -60,7 +60,7 @@ const recognizeMusic = async (url) => {
   form.append('url', url);
   form.append('return', 'deezer');
 
-  const response = await got.post('https://api.audd.io/', {
+  const response = await axios.post('https://api.audd.io/', {
     body: form,
     responseType: 'json',
     resolveBodyOnly: true,
