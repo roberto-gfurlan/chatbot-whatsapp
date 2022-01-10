@@ -5,7 +5,6 @@ dotenv.config();
 
 async function sendMessageWpp(body) {
   try {
-    console.log("SENDMESSAGEWPP", JSON.stringify(body));
     let url = "https://api.zenvia.com/v2/channels/whatsapp/messages";
     const response = await axios({
       method: "POST",
@@ -16,9 +15,9 @@ async function sendMessageWpp(body) {
       },
       data: body,
     });
+
     return response.data || {};
   } catch (error) {
-    console.log(error.response ? error.response.data : error);
     throw new Error(error);
   }
 }

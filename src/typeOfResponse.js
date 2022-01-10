@@ -13,10 +13,10 @@ const { TextContent, FileContent } = require("@zenvia/sdk");
 //   }
 // }
 
-function typeOfMessage() {
-   if (output.type === "text") {
-     answer.push(new TextContent(output.text));
-   }
+function typeOfMessage(output) {
+  if (output.type === "text") {
+    return new TextContent(output.text);
+  }
   // if (output.type === "select") {
   //   const customButton = output.payload.options.map((button) => {
   //     return {
@@ -37,20 +37,14 @@ function typeOfMessage() {
   //     ],
   //   });
   // }
-
-  async function typeOfResponse(data) {
-    let answer = [];
-    if (data.output && data.output.length > 0) {
-      for (let output of data.output) {
-
-      }
+}
+async function typeOfResponse(data) {
+  let answer = [];
+  if (data.output && data.output.length > 0) {
+    for (let output of data.output) {
+      answer.push(typeOfMessage(output));
     }
   }
-
-  console.log("=====================================");
-  console.log("typeOfResponseAfter", JSON.stringify(answer));
-
   return answer;
 }
-
-module.exports = typeOfMessage;
+module.exports = typeOfResponse;
