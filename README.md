@@ -9,8 +9,8 @@ Desafio pair programming - Zenvia Whatsapp
 <p align="center">
  <a href="#-sobre-o-projeto">Sobre</a> •
  <a href="#-funcionalidades">Funcionalidades</a> •
- <a href="#-rodando-a-aplicacao">Como executar</a> • 
- <a href="#-sugestao-de-melhorias">Melhorias</a> • 
+ <a href="#-rodando-a-aplicação">Como executar</a> • 
+ <a href="#-sugestão-de-melhorias">Melhorias</a> • 
 </p>
 
 
@@ -48,7 +48,7 @@ $ npm run start
 
 ---
 
-##✨ Sugestão de Melhorias
+## ✨ Sugestão de Melhorias
 
 Ao longo do desenvolvimento foi notado alguns pontos que podem auxiliar em melhorias futuras:
 
