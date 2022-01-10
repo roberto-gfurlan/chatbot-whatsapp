@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 
 const typeOfResponse = require("./typeOfResponse");
 const sendMessageAltu = require("./services/sendMessageAltu");
-const sendMessageWpp = require("./services/sendMessageWpp");
 
 dotenv.config();
 
@@ -14,8 +13,6 @@ const whatsapp = client.getChannel("whatsapp");
 const webhook = new WebhookController({
   channel: "whatsapp",
   messageEventHandler: async (messageEvent) => {
-    console.log("CRU", JSON.stringify(messageEvent));
-    console.log("====================================");
     await sendMessageAltu(
       messageEvent.message,
       messageEvent.message.contents[0].type,
@@ -27,10 +24,8 @@ const webhook = new WebhookController({
 webhook.app.use(bodyParser.json());
 
 webhook.app.post("/answer", async (req, res) => {
-  console.log("RESPONSE", JSON.stringify(req.body));
-  console.log("====================================");
-  let response = await typeOfResponse(req.body);
-  whatsapp.sendMessage(req.body.context.to, req.body.context.from, ...response);
+   let response = typeOfResponse(req.body);
+  await whatsapp.sendMessage(req.body.context.to, req.body.context.from, ...response);
   res.end();
 });
 
