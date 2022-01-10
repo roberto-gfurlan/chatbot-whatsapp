@@ -2,12 +2,9 @@ const { Client, WebhookController } = require("@zenvia/sdk");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
 
-const typeOfMessage = require("./typeOfResponse")
-const typeOfResponse = require("./typeOfResponse")
-//const router = require("./router");
+const typeOfResponse = require("./typeOfResponse");
 const sendMessageAltu = require("./services/sendMessageAltu");
 const sendMessageWpp = require("./services/sendMessageWpp");
-
 
 dotenv.config();
 
@@ -33,24 +30,7 @@ webhook.app.post("/answer", async (req, res) => {
   console.log("RESPONSE", JSON.stringify(req.body));
   console.log("====================================");
   let response = await typeOfResponse(req.body);
-  for (let resp of response) {
-    if (resp.menu) {
-      await sendMessageWpp(resp);
-    } else {
-      whatsapp.sendMessage(req.body.context.to, req.body.context.from, resp);
-    }
-  }
-  // const filterMessages = response.filter((item) => !item.menu);
-  // whatsapp.sendMessage(
-  //   req.body.context.to,
-  //   req.body.context.from,
-  //   ...filterMessages
-  // );
-  // for (let resp of response) {
-  //   if (resp.menu) {
-  //     await sendMessageWpp(resp);
-  //   }
-  // }
+  whatsapp.sendMessage(req.body.context.to, req.body.context.from, ...response);
   res.end();
 });
 

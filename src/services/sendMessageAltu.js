@@ -6,7 +6,6 @@ dotenv.config();
 async function sendMessageAltu(data, type, subscription) {
   try {
     let url = "https://www.altubots.com/api/v2/treinamento/362";
-    console.log(JSON.stringify({ data, type, subscription }));
     const response = await axios({
       method: "POST",
       url,
