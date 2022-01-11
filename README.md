@@ -1,6 +1,11 @@
-<h1 align="center">
-    <img alt="NextLevelWeek" title="#NextLevelWeek" src="./images/banner.png" />
-</h1>
+<div align="center">
+  <img align="center" alt="chatbot-whatsapp" title="#chatbot-whatsapp" src="./src/assets/Logo.png" width="250" />
+  <h1>chatbot-whatsapp</h1>
+  <img alt="Last commit" src="https://img.shields.io/github/last-commit/roberto-gfurlan/chatbot-whatsapp"/>
+  <img alt="Language top" src="https://img.shields.io/github/languages/top/roberto-gfurlan/chatbot-whatsapp"/>
+  <img alt="Repo size" src="https://img.shields.io/github/repo-size/roberto-gfurlan/chatbot-whatsapp"/>
+  <img alt="Repo size" src="https://img.shields.io/github/contributors/roberto-gfurlan/chatbot-whatsapp"/>
+</div>
 
 <h4 align="center"> 
 Desafio pair programming - Zenvia Whatsapp
@@ -12,7 +17,6 @@ Desafio pair programming - Zenvia Whatsapp
  <a href="#-rodando-a-aplicação">Como executar</a> • 
  <a href="#-sugestão-de-melhorias">Melhorias</a> • 
 </p>
-
 
 ## 💻 Sobre o projeto
 
@@ -28,21 +32,90 @@ O desafio proposto em realizar uma integração da API da Zenvia utilizando de s
 
 ---
 
+## 🔴 Demonstração
+
+<img src="./src/assets/demo.gif" width="250"/>
+
+---
+
+## 📝 Requisitos
+
+Para conseguir rodar o projeto você precisa ter:
+
+### Primeiro passo:
+
+Instale o [ngrok](https://ngrok.com/) na sua maquina com ele voce pode expor uma porta local para ter acesso em qualquer lugar utilizando uma url que ele gera automaticamente quando você roda o comando:
+
+```sh
+./ngrok http 3000
+```
+
+no nosso caso a porta que vai ser liberada é a **3000**, lembrando que você precisa estar rodando o projeto para que tenha um retorno ao acessar essa url.
+
+### Segundo passo:
+
+Crie uma conta na Zenvia para ter acesso ao sandbox nesse link [zenvia-tutorial](https://www.zenvia.com/blog/developers/whatsapp-bot-nodejs/) nos passos 3 e 4 ele ensina como criar um conta na zenvia e fazer toda a configuracao e na parte de **subscription** coloque a url gerada pelo ngrok.
+_obs: guarde sua X-API-TOKEN_
+
+### Terceiro passo:
+
+Crie um bot no Altu e clique em connect->canais->api e criei uma configuracao seguindo esse tutorial [altu-docs](https://docs.altu.d1.cx/connect/canais/bot_api) na parte de url coloque:
+
+```
+{sua url ngrok}/answer
+```
+
+com isso toda resposta do Builder chegará nessa URL
+_obs: guarde o Token_
+
+Utilizamos o [audd](https://audd.io/) para reconhecer as musicas você pode fazer um cadastro no site deles para poder ter acesso a api lembrando que tem um tempo de expiração no modo gratuito, no Builder crie um nó e coloque como ponto de entrada **input.text === 'FILE_SEND'** nesse nó você poderá fazer as chamadas de api diretamente do Altu(incrível 🤯), essa é a estrutura para chamar a api do Audd:
+
+```json
+[
+  {
+    "name": "http_request",
+    "parameters": {
+      "config": {
+        "url": "https://api.audd.io/",
+        "data": {
+          "url": "<? $details.fileUrl ?>",
+          "return": "deezer,apple_music,spotify",
+          "api_token": "seu_token_do_audd"
+        },
+        "method": "POST",
+        "headers": {
+          "Content-Type": "multipart/form-data"
+        }
+      },
+      "flavor": "axios"
+    },
+    "result_variable": "api_response"
+  }
+]
+```
+
+a parte de formatar a resposta você pode criar do jeito que achar melhor lembrando de ser do tipo _text_ dentro do
+**MENSAGEM PARA O USUÁRIO** do nó.
+
+---
+
 ## 🧭 Rodando a aplicação
+
+Você deve criar um arquivo **.env** na raiz do seu projeto contendo as seguintes variaves:
+
+- ZENVIA_TOKEN: token gerado no sandbox da zenvia chamado de **X-API-TOKEN**
+- TOKEN_ALTU: token gerado quando você conecta seu bot com o canal API o nome é **Token**
 
 ```bash
 
-# Abra um novo terminal dentro do diretório atual
-# Acesse a pasta do projeto no seu terminal/cmd
-$ cd frontend
-
-# Instale as dependências
-$ yarn install
+# Abra um novo terminal dentro do diretório
+# Instale as dependências utilizando o npm
+$ npm i
 
 # Execute a aplicação em modo de desenvolvimento
-$ npm run start
+$ npm run dev
 
-# A aplicação será aberta na porta:3000 - acesse http://localhost:3000
+# A aplicação será aberta na porta:3000
 
 ```
 
@@ -52,9 +125,10 @@ $ npm run start
 
 Ao longo do desenvolvimento foi notado alguns pontos que podem auxiliar em melhorias futuras:
 
-- A **[SDK Zenvia](https://www.npmjs.com/package/@zenvia/sdk )** possui suporte a botões.
-- Os botões presentes na **[documentação](https://zenvia.github.io/zenvia-openapi-spec/v2/#tag/Content-types )** terem suporte para acesso a URLs externas.
+- A **[SDK Zenvia](https://www.npmjs.com/package/@zenvia/sdk)** possui suporte a botões.
+- Os botões presentes na **[documentação](https://zenvia.github.io/zenvia-openapi-spec/v2/#tag/Content-types)** terem suporte para acesso a URLs externas.
 
+---
 
 ## 💪 Como contribuir para o projeto
 
