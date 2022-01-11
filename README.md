@@ -141,4 +141,4 @@ Ao longo do desenvolvimento foi notado alguns pontos que podem auxiliar em melho
 
 ## 🔆 Equipe
 
-[Jana Pedrina](https://github.com/janapc), [Matheus Simões](https://github.com/Dinamous), Mauro Roberto da Cruz Cunha e [Roberto Furlan](https://github.com/roberto-gfurlan)
+[Jana Pedrina](https://github.com/janapc) • [Matheus Simões](https://github.com/Dinamous) • Mauro Roberto da Cruz Cunha • [Roberto Furlan](https://github.com/roberto-gfurlan)
